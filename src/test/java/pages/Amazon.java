@@ -36,7 +36,8 @@ public class Amazon {
             try {
                 name = el.findElement(By.xpath(".//span[@class='a-size-base-plus a-color-base a-text-normal']")).getText();
             } catch (Exception ex) {
-                System.out.println("Error: "+result);
+                BaseTest.LOG.error("Error: " + result);
+
             }
             try {
                 //String price = el.findElement(By.cssSelector(".a-row.a-size-base.a-color-base span span")).getText();
@@ -46,31 +47,43 @@ public class Amazon {
                 result.put(name, "$0.00");
             }
         }
-        BaseTest.LOG.info("Found " + result.size() + " products");
+        BaseTest.LOG.info("Found " + (result.size() + 1) + " products");
         return result;
     }
 
     public void searchProduct(String text) {
+        BaseTest.LOG.info("Method searchProduct started");
         searchBox.clear();
+        BaseTest.LOG.debug("clear");
         searchBox.sendKeys(text);
+        BaseTest.LOG.debug("sendKeys");
         searchBox.sendKeys(Keys.ENTER);
-            BaseTest.LOG.info("search product: " + text);
+        BaseTest.LOG.debug("click Enter");
+        BaseTest.LOG.info("Method searchProduct finished ");
     }
 
     public void setMinPriceFilter(String text) {
+        BaseTest.LOG.info("Method searchProduct started");
         minPriceFilter.clear();
+        BaseTest.LOG.debug("clear");
         minPriceFilter.sendKeys(text);
-            BaseTest.LOG.info("Set min price of filter: " +  text);
+        BaseTest.LOG.debug("Set min price of filter");
+        BaseTest.LOG.info("Method setMinPriceFilter finished");
 
     }
 
     public void setSneakersType() {
+        BaseTest.LOG.info("Method setSneakersType started");
         sneakersFilterButton.click();
-            BaseTest.LOG.info("Click button type Sneakers");
+        BaseTest.LOG.debug("Click button type Sneakers");
+        BaseTest.LOG.info("Method setSneakersType finished");
     }
 
     public void goSearch() {
+        BaseTest.LOG.info("Method setSneakersType started");
         goButton.click();
-            BaseTest.LOG.info("Click GO button in the filter");
+        BaseTest.LOG.debug("Click GO button in the filter");
+        BaseTest.LOG.info("Method goSearch finished");
     }
+
 }

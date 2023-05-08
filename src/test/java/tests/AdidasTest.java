@@ -32,22 +32,10 @@ public class AdidasTest extends BaseTest {
         storePage.goSearch();
 
         Map<String, String> mapOfDistinctSneakers = storePage.getAllDistinctProducts();
-        mapOfDistinctSneakers.forEach((key, value) -> System.out.println(key + " --- " + value));
-
-        checkPrice(mapOfDistinctSneakers);
-    }
-
-    private void checkPrice(Map<String, String> mapOfDistinctSneakers) {
-        int errors = 0;
         SoftAssert softAssert = new SoftAssert();
-        for (Map.Entry<String, String> entry : mapOfDistinctSneakers.entrySet()) {
-            String value = entry.getValue();
-            if (value.equals("$0.00")) {
-                softAssert.fail("Product " + entry.getKey() + " has price $0.00");
-                errors++;
-            }
-        }
-        BaseTest.LOG.info("Test completed.Found errors: " + errors);
+        mapOfDistinctSneakers.forEach((key, value) ->
+                softAssert.assertTrue(value != "$0.00", ("Product " + key + " has price $0.00")));
         softAssert.assertAll();
     }
+
 }
